@@ -1,0 +1,14 @@
+From this folder, the necessary files are: 
+
+- config.vhd: contains the minimal configuration for a Leon3 on DE2-115
+
+- leon3mp.vhd: is the modified top level, which includes top_wrapper (a.k.a. top_level) 
+	       component and removes unused pins
+
+- top_level.vhd: is the component needed to interface Leon3 bus and Avalon
+
+NOTE:
+
+- config.vhd and config_DE2-115.vhd are identical
+
+- the .h and .in files have been copied just for safety, but they are not necessary

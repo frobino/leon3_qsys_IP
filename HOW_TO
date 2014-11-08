@@ -1,0 +1,65 @@
+Steps to generate the project after cloning this repository:
+
+1) Unpack the Leon SoC tool (grlib-gpl-1.3.7-b4144.tar.gz) in the "root" folder of the repo, 
+   so that the final folder structure looks as the following:
+
+   ./
+   .grlib-gpl-1.3.7-b4144/
+   .reference_files/
+   .test_gpio2/
+
+2) cd grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115
+   make xconfig
+
+3) From the GUI, select "Load configuration from file", and select the 
+   config.vhd file provided in the reference_files/ folder. 
+   The select "Save and exit"
+
+4) Control that the config.vhd file in grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/ 
+   looks the same as reference_files/config.vhd.
+   In particular, check the following properties:
+
+-- AHB ROM
+  constant CFG_AHBROMEN : integer := 1;
+  constant CFG_AHBROPIP : integer := 0;
+  constant CFG_AHBRODDR : integer := 16#000#;
+  constant CFG_ROMADDR : integer := 16#100#;
+  constant CFG_ROMMASK : integer := 16#E00# + 16#100#;
+-- AHB RAM
+  constant CFG_AHBRAMEN : integer := 1;
+  constant CFG_AHBRSZ : integer := 64;
+  constant CFG_AHBRADDR : integer := 16#400#;
+
+5) enter in test_gpio2/ folder and run the .sh script. 
+   The script does the following: 
+   
+   1 - copy top_level.vhd from reference_files/ folder to 
+       grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/ folder
+
+   2 - copy the leon3mp.vhd file from reference_files/ folder to 
+       grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/ folder. 
+       This file includes the top_level component and removes the undused pins. 
+       (the best would be modifying )
+       In this case, leon3mp.vhd (the top level of the Leon component), 
+       has been edited manually to include the amba_avalon wrapper (top_level.vhd). 
+       and must be modified to remove useless pins. THEORETICALLY, if the amba_avalon 
+       wrapper is inserted as new component in grlib (grlib.pdf p.73), 
+       this is done automatically, but now this is done manually (or through the .sh script)
+
+   3 - rename config, leon3mp and top_level files to avoid problems with components called 
+       in the same way from grlib-gpl-1.3.7-b4144/lib folder
+
+6) Now we can create a quartus project (named test_gpio) in the test_gpio2/ folder, and 
+   use the .qsys file as top component. Generate and synthesize, to create the .sof file. 
+
+   NOTE: DOUBLE CHECK THAT THE .qsf FILE IS NOT OVERWRITTEN!
+
+7) Cross compile the software program using the sparc-elf cross compiler 
+
+   sparc-elf-gcc -msoft-float -c -O2 <.c file>
+
+8) Run the grmon debugger. In the grmon shell give the following commands: 
+   
+   grmon-eval -altjtag -u
+   lo <exacutable-name>
+   run

@@ -9,10 +9,12 @@
 #1 copy/create the wrapper (top_level.vhd) in the designs/leon3-terasic-de2-115/ folder
 #
 #  To be done
+cp ../reference_files/top_level.vhd ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/
 
 #2 modify leon3mp.vhd removing unused ports and adding wrapper (see reference files/leon3mp.vhd)
 #
 #  To be done
+cp ../reference_files/leon3mp.vhd ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/
 
 #3 copy config.vhd and other files to <namefile>2.vhd to avoid names collisions in qsys 
 #  (qsys cannot import files with same name, also if they are in different folders) 
