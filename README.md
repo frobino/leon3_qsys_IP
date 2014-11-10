@@ -30,14 +30,12 @@ run this specific project.
 TBD
 ===
 
-* test the script
 * leon3mp.vhd, the top level of the Leon component, has been edited 
   manually to include the amba_avalon wrapper (top_level.vhd), and must be 
   modified to remove useless pins. 
   THEORETICALLY, if wrapper is inserted as new component in 
   grlib (grlib.pdf p.73), this is done automatically, but now this is done manually 
   (or through the .sh script)
-* check the automation and write documentation
   
 my personal notes
 =================
