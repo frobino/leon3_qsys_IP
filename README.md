@@ -1,7 +1,31 @@
 leon3_qsys_IP
 =============
 
-Include Leon3 processor as IP in Altera Qsys
+Include Leon3 processor as IP in Altera Qsys. 
+This project targets the DE2-115 board. 
+
+Regarding the DE2-115 Board:
+ - (as far as I have seen today) this board does not support ROM, 
+   only RAM, so it is not possible to use only on-chip memory
+ - see config_DE2-115.vhd in minimal_config folder. Configured as:
+    * no MMU
+    * yes serial, yes jtag
+    * yes 8 bit PROM/SRAM bus support
+    * yes SDRAM controller
+    * yes Separate address and data buses
+    * no ethernet/no can no spi no gpio
+
+If the user is interested in using only on-chip memory, he could use another 
+board, as described in 
+
+http://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-121697
+
+and use the mkprom utility.
+
+The following part of the README is used for personal reminders.
+Please, have a look to HOW_TO for a detailed description about how to 
+run this specific project.
+
 
 TBD
 ===
@@ -20,7 +44,7 @@ my personal notes
 		 
 FOLDER STRUCTURE:
  |
- - grlib-gpl- (included in git repo) : Leon3 SoC (sopc/qsys equivlent)
+ - grlib-gpl- (NOT included in git repo) : Leon3 SoC (sopc/qsys equivlent)
  - grmon-eval- (NOT included in git repo) : debugger Leon3
  - sparc-elf- (NOT included in git repo) : cross compiler for Leon3 (sparc_v8)
  - test_gpio2 (included in git repo) : final project folder, containing sw to turn on led (GPIO in Qsys)
@@ -37,16 +61,6 @@ In general, if we want to have only on-chip memory, we need both AHB ROM and RAM
   constant CFG_AHBRAMEN : integer := 1;
   constant CFG_AHBRSZ : integer := 64;
   constant CFG_AHBRADDR : integer := 16#400#;
-
-DE2-115
- - does not support ROM, only RAM, so it is not possible to use only on-chip
- - see config_DE2-115.vhd in minimal_config folder. Configured as:
-    * no MMU
-    * yes serial, yes jtag
-    * yes 8 bit PROM/SRAM bus support
-    * yes SDRAM controller
-    * yes Separate address and data buses
-    * no ethernet/no can no spi no gpio
 
 
 BEFORE USING grmon:

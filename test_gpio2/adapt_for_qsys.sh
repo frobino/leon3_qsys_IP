@@ -19,6 +19,6 @@ cp ../reference_files/leon3mp.vhd ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic
 #3 copy config.vhd and other files to <namefile>2.vhd to avoid names collisions in qsys 
 #  (qsys cannot import files with same name, also if they are in different folders) 
 
-cp ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/config.vhd ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/config2.vhd
-cp ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/leon3mp.vhd ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/leon3mp2.vhd
-cp ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/top_level.vhd ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/top_level2.vhd
+mv ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/config.vhd ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/config2.vhd
+mv ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/leon3mp.vhd ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/leon3mp2.vhd
+mv ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/top_level.vhd ../grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/top_level2.vhd

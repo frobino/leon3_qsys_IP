@@ -1,3 +1,13 @@
+/*-------------------------------------------------------------*/
+Tested environment: 
+Linux Debian Jessie x64, with Quartus 13.1 
+Linux Ubuntu 14.04 x64, with Quartus 14.0 and 10.0sp1
+Other environments/OSs have not been tested
+
+The script described in step 5 has been written for grlib version 1.3.7-b4144. 
+If another version is used some simple modifications have to been applied. 
+/*-------------------------------------------------------------*/
+
 Steps to generate the project after cloning this repository:
 
 1) Unpack the Leon SoC tool (grlib-gpl-1.3.7-b4144.tar.gz) in the "root" folder of the repo, 
@@ -12,8 +22,12 @@ Steps to generate the project after cloning this repository:
    make xconfig
 
 3) From the GUI, select "Load configuration from file", and select the 
-   config.vhd file provided in the reference_files/ folder. 
+   config.h file provided in the reference_files/ folder. 
    The select "Save and exit"
+   NOTE: unfortunately this step does not always work. 
+   To be safe, I suggest to copy the config.vhd provided in 
+   in the reference_files/ folder to the 
+   grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115 folder.
 
 4) Control that the config.vhd file in grlib-gpl-1.3.7-b4144/designs/leon3-terasic-de2-115/ 
    looks the same as reference_files/config.vhd.
@@ -58,8 +72,22 @@ Steps to generate the project after cloning this repository:
 
    sparc-elf-gcc -msoft-float -c -O2 <.c file>
 
-8) Run the grmon debugger. In the grmon shell give the following commands: 
-   
+8) Run the grmon debugger. 
+   NOTE: grmon is officially supported only for x86 architectures. 
+   This means that if we want to connect though the altera jtag (altjtag) 
+   we require the libraries (.so files ) from a older version of 
+   Quartus than 14.0. I tested with libraries from 10.0sp1. 
+ 
+   Be sure that your shell is running a Nios shell, then set the 
+   following environment variables:
+
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<path to grmon>/grmon-eval-2.0.52/linux/lib
+   For Quartus 10.0 to 13.1 included: 
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<path to altera>/altera/13.1/quartus/linux 
+
+   To open the grmon shell opens correctly: 
    grmon-eval -altjtag -u
+
+   In the grmon shell, give the following commands:
    lo <exacutable-name>
    run
